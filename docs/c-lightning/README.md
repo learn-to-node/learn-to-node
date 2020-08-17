@@ -1,0 +1,5 @@
+# c-lightning
+
+::: warning MESSAGE TO THE READER
+contributions on how one can "learn to node" c-lightning are welcome. Please submit a pull request on github if you have some knowledge to share. In the meantime learn to node [Bitcoin Core](/bitcoin-core).
+:::

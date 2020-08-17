@@ -1,0 +1,16 @@
+{
+  "name": "learn-to-node-bitcoin-core",
+  "version": "0.0.1",
+  "description": "Learn to node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "author": "",
+  "license": "CC-BY-SA-4.0",
+  "dependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
