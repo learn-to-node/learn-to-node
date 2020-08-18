@@ -23,6 +23,7 @@ module.exports = {
         sidebar: {
             '/bitcoin-core/': [
                 '/',
+                '',
                 '/bitcoin-core/getting-started/',
                 {
                     title: "Bitcoin Daemon",
@@ -36,6 +37,7 @@ module.exports = {
             ],
             '/lnd/': [
                 '/',
+                ''
             ],
             '/': [
                 {
