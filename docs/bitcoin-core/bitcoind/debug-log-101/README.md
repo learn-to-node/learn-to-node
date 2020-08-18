@@ -1,14 +1,67 @@
 # Debug Log 101
 
-## Log Format
+Cars have check oil lights. Nodes have debug logs. This section aims to help you understand what your debug log is trying to tell you.
 
 ## UpdateTip
+
+The `UpdateTip` log line is probably the most frequent log line one will see when running a node. It is emitted when your node validates a new block which increases the height of your copy of your validated blockchain.
+
+The source code for this function can be [seen in the bitcoin repo](https://github.com/bitcoin/bitcoin/blob/b75f2ad72db6db93665c66279a4c9e8d5d89f027/src/validation.cpp#L2429-L2476).
 
 ```log
 2020-08-14T22:07:12Z UpdateTip: new best=000000000000000000072bf2a9af1800ce6f40757e0d8297b4c7760df905e31a height=596624 version=0x20800000 log2_work=91.134654 tx=458945132 date='2019-09-26T04:02:33Z' progress=0.825751 cache=140.4MiB(1033026txo)
 ```
 
+
+Below we elaborate on each variable you see in the `UpdateTip` log statement.
+
+#### best
+
+The hash of the block which your node has so far validated to be the tip of the longest chain of blocks with the most work done on it. The string is a sha256 hash of the merkle root and the leading zeros are what is targeted by the difficulty that blockchain was at the time the block got mined.
+
+#### height
+
+This is the height at which the validated block height is currently at. At correlates to the [best hash string](#best).
+
+Can be seen in the [Bitcoin repo](https://github.com/bitcoin/bitcoin/blob/54f812d9d29893c690ae06b84aaeab128186aa36/src/chain.h#L149-L150).
+
+#### version
+
+The version is hexidecimal 4 byte value that miners can use to signal which consensus rules their are in support of. It forms a part of the block header and part of Bitcoins consensus protocol.
+
+<!-- Mastering Bitcoin covers this will https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch10.asciidoc -->
+
+#### log2_work
+
+You know the saying the valid chain has the most work. The `log2_work` string in your debug log is actually the log<sub>2</sub> of the work done by the chain up until the corresponding block height. log<sub>2</sub>(nChainWork)
+
+The definition of `nChainWork` can be seen in the [bitcoin repo](https://github.com/bitcoin/bitcoin/blob/54f812d9d29893c690ae06b84aaeab128186aa36/src/chain.h#L161-L162).
+
+#### tx
+
+This tells you the number of accumulated transactions from the tip of the current block till the genesis block. It is a currently defined as a 32-bit positive number.
+
+Can be seen in [the bitcoin repo](https://github.com/bitcoin/bitcoin/blob/54f812d9d29893c690ae06b84aaeab128186aa36/src/chain.h#L168-L171).
+
+#### date
+
+Date that the block was mined. This string is a ISO 8601 format.
+
+#### progress
+
+Estimated progress that your node has made in syncing the chain. This value is calculated by dividing the number of transactions your node has validate and the number of transactions being reported at the tip of the best chain on the Bitcoin network.
+
+Function can be seen on the [bitcoin repo](https://github.com/bitcoin/bitcoin/blob/b75f2ad72db6db93665c66279a4c9e8d5d89f027/src/validation.cpp#L5193-L5210).
+
+#### cache
+
+Ask the closest Bitcoiner you know what the `cache` item in the `UpdateTip` log line means.
+
+---
+
 ## Leaving block file
+
+While validating the blockchain your node stores the blocks in block files. Which can be found in the "blocks" data directory which your bitcoin daemon is running in.  
 
 ```log
 2020-08-14T22:07:13Z Leaving block file 1807: CBlockFileInfo(blocks=141, size=133455104, heights=596273...596809, time=2019-09-23...2019-09-27)
