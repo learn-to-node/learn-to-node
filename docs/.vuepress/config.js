@@ -2,7 +2,7 @@ module.exports = {
     dest: 'dist',
     themeConfig: {
         lastUpdated: true,
-        repo: 'https://github.com/UWKaLgmda/learn-to-node',
+        repo: 'https://github.com/learn-to-node/learn-to-node',
         searchPlaceholder: 'run which numbers?',
         editLinks: true,
         docsDir: 'docs',
