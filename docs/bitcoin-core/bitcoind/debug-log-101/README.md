@@ -59,6 +59,39 @@ Ask the closest Bitcoiner you know what the `cache` item in the `UpdateTip` log 
 
 ---
 
+## New outbound peer
+
+```log
+2020-08-14T21:46:49Z New outbound peer connected: version: 70015, blocks=643740, peer=28 (full-relay)
+```
+
+## Ping Timeout
+
+Ping timeouts happen when a node lose a connection to a peer.
+
+Your node is just one of many nodes that collaborate to keep consensus on the state of the Bitcoin blockchain. A healthy node is a well connected node which can send a receive messages with a diverse set of peers to verify the current state of the valid Bitcoin blockchain with the most work on it.
+
+For a node to know whether it is still connected to a peer it will need to ping it's peer every once in a while. Think of pings as you checking in on a colleague at the office during a productive work day.
+
+Ping timeouts happen when a certain amount of time goes by without a node getting a response back from it's peer after sending it a ping.
+
+```log
+2020-08-14T22:06:45Z ping timeout: 1200.000778s
+```
+
+The log shows you the amount of time that went by without getting a response back from a peer. The [`TIMEOUT_INTERVAL`](https://github.com/bitcoin/bitcoin/blob/bd00d3b1f2036893419d1e8c514a8af2c4e4b1fb/src/net.h#L50-L51) is set to 1200 seconds (20 minutes). You will notice that the ping timeout is long enough to fit prime time TV show episode. This allows a well connected node to not spend most of it's time responding to pings from it's peers and spend that time looking out for the next tip of the blockchain. 
+
+The ping message is an unsigned 64-bit integer. When your node pings a peer it sends it a random nonce. The peer would respond with this nonce to acknowledge your ping. 
+
+Your node [disconnects to the peer](https://github.com/bitcoin/bitcoin/blob/bd00d3b1f2036893419d1e8c514a8af2c4e4b1fb/src/net.cpp#L1168) that doesn't respond to it's ping in a timely fashion. Which is how you get the ping timeout log line.
+
+##  Pre-allocating block
+
+```log
+2020-08-14T22:07:14Z Pre-allocating up to position 0x2000000 in blk01808.dat
+```
+
+
 ## Leaving block file
 
 While validating the blockchain your node stores the blocks in block files. Which can be found in the "blocks" data directory which your bitcoin daemon is running in.  
@@ -67,28 +100,10 @@ While validating the blockchain your node stores the blocks in block files. Whic
 2020-08-14T22:07:13Z Leaving block file 1807: CBlockFileInfo(blocks=141, size=133455104, heights=596273...596809, time=2019-09-23...2019-09-27)
 ```
 
-##  Pre-allocating block
-
-```log
-2020-08-14T22:07:14Z Pre-allocating up to position 0x2000000 in blk01808.dat
-```
-
-## Ping Timeout
-
-```log
-2020-08-14T22:06:45Z ping timeout: 1200.000778s
-```
-
 ## Synchronizing blockheaders
 
 ```log
 2020-08-14T21:46:26Z Synchronizing blockheaders, height: 643740 (~100.00%)
-```
-
-## New outbound peer
-
-```log
-2020-08-14T21:46:49Z New outbound peer connected: version: 70015, blocks=643740, peer=28 (full-relay)
 ```
 
 ## Imported mempool transactions from disk
