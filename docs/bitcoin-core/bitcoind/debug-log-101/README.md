@@ -21,7 +21,7 @@ The hash of the block which your node has so far validated to be the tip of the 
 
 #### height
 
-This is the height at which the validated block height is currently at. At correlates to the [best hash string](#best).
+This is the height at which the validated block height is currently at. It correlates to the [best hash string](#best).
 
 Can be seen in the [Bitcoin repo](https://github.com/bitcoin/bitcoin/blob/54f812d9d29893c690ae06b84aaeab128186aa36/src/chain.h#L149-L150).
 
